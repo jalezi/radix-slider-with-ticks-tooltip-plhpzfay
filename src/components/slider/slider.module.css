@@ -1,0 +1,73 @@
+.Slider {
+  --slider-color: lightgrey;
+  --range-color: lightblue;
+  --track-height: 0.5lh;
+  --thumb-width: 1em;
+  position: relative;
+  width: 100%;
+
+  line-height: 1;
+  height: var(--thumb-width);
+
+  display: flex;
+  align-items: center;
+
+  touch-action: none;
+  user-select: none;
+}
+
+.Track {
+  position: relative;
+  height: var(--track-height);
+  width: 100%;
+  flex-grow: 1;
+  background-color: var(--slider-color);
+  border-radius: 2em;
+}
+
+.Range {
+  position: absolute;
+  height: 100%;
+  background-color: var(--range-color);
+}
+
+.Thumb {
+  display: block;
+  width: var(--thumb-width);
+  aspect-ratio: 1;
+
+  background-color: #ffffff;
+  border: 1px solid var(--range-color);
+  border-radius: 50%;
+
+  cursor: grab;
+}
+
+.Thumb:focus-visible {
+  box-shadow: 0px 0px 8px 0px var(--range-color);
+  outline: none;
+}
+
+.Tick {
+  --translate-calc: calc((var(--thumb-width) - var(--track-height)) / -2);
+  position: absolute;
+  top: 0;
+  display: block;
+  width: var(--thumb-width);
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background-color: var(--slider-color);
+}
+
+.Tick.InRange {
+  --slider-color: var(--range-color);
+}
+
+.Tick.Horizontal {
+  transform: translate(-50%, var(--translate-calc));
+}
+
+.Tick.Vertical {
+  transform: translate(var(--translate-calc) -50%);
+}
