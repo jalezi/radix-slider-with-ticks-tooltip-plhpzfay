@@ -13,7 +13,7 @@ function App() {
   return (
     <TooltipProvider>
       <h1>Radix Slider</h1>
-      <div>
+      <div style={{ paddingInline: "2rem" }}>
         <Slider
           value={range}
           onValueChange={onChange}

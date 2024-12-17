@@ -8,7 +8,7 @@ export function Ticks({
   step,
   value,
   thumbWidth,
-  orientation
+  orientation,
 }) {
   const ticks = useTicks({
     min,
@@ -22,10 +22,10 @@ export function Ticks({
   return (
     <>
       {ticks.map((tickProps) => {
-      
         return (
-        <Tick key={tickProps.id} {...tickProps} />
-      )})}
+          <Tick key={tickProps.id} {...tickProps} />
+        )
+      })}
     </>
   );
 }

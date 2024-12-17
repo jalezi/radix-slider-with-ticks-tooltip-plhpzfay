@@ -8,9 +8,7 @@ import { RadixSliderDefaults, THUMB_SIZE } from './constants';
 import { useThumbWidth } from './hooks/useThumbWidth';
 
 import styles from './slider.module.css';
-
-
-
+import { isNotNullOrUndefined } from './utils';
 
 export const Slider = forwardRef(
   (
@@ -65,9 +63,8 @@ export const Slider = forwardRef(
       setTooltipValue(null)
     }
 
-
-
     return (
+
       <SliderPrimitive.Slider
         ref={sliderRef}
         className={styles.Slider}
@@ -79,7 +76,7 @@ export const Slider = forwardRef(
 
         {...props}
       >
-        <Tooltip.Root open={!!tooltipValue}>
+        <Tooltip.Root open={isNotNullOrUndefined(tooltipValue)}>
           <Tooltip.Trigger asChild>
             <SliderPrimitive.Track ref={trackRef} className={styles.Track}>
               <SliderPrimitive.Range className={styles.Range} />
@@ -92,29 +89,26 @@ export const Slider = forwardRef(
                 orientation={innerOrientation}
               />
             </SliderPrimitive.Track>
-
           </Tooltip.Trigger>
+          {value.map((_, i) => (
+            <SliderPrimitive.Thumb
+              key={i}
+              className={styles.Thumb}
+            />
+          ))}
 
           <Tooltip.Content
             id="track-tooltip"
             align="start"
             alignOffset={tooltipOffset}
+            sideOffset={thumbWidth / 2 + 2}
             className={styles.TooltipContent}
-            sideOffset={10}
           >
             {tooltipValue}
-            <Tooltip.Arrow className={styles.TooltipArrow} />
           </Tooltip.Content>
-        </Tooltip.Root>
-        {value.map((_, i) => (
-          <SliderPrimitive.Thumb
-            key={i}
-            className={styles.Thumb}
-            onPointerEnter={hadlePointerEnter}
-            onPointerMove={hadlePointerEnter}
-            onPointerLeave={handlePointerLeave} />
-        ))}
+        </Tooltip.Root >
       </SliderPrimitive.Slider>
+
     );
   }
 );

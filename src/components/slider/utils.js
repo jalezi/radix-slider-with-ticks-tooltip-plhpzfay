@@ -35,3 +35,7 @@ export function linearScale(input, output) {
 export function clamp(value, { min, max }) {
   return Math.min(max, Math.max(min, value));
 }
+
+export function isNotNullOrUndefined(value) {
+  return value !== null && value !== undefined;
+}
