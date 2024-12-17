@@ -1,24 +1,19 @@
-import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 import { Ticks } from './components/Ticks';
-import { RadixSliderDefaults, THUMB_SIZE } from './constants';
+import { RadixSliderDefaults } from './constants';
 import { useThumbWidth } from './hooks/useThumbWidth';
 
 import styles from './slider.module.css';
 import { isNotNullOrUndefined } from './utils';
+import { cx } from 'class-variance-authority';
 
 export const Slider = forwardRef(
   (
-    {
-      className,
-      onValueChange,
-      defaultValue: defaultValueProp,
-      value: valueProp,
-      ...props
-    },
+    { className, onValueChange, defaultValue: defaultValueProp, value: valueProp, ...props },
     forwardedRef
   ) => {
     const sliderRef = useRef(forwardedRef);
@@ -26,9 +21,8 @@ export const Slider = forwardRef(
 
     const [value, setValue] = useState(defaultValueProp ?? valueProp ?? [0]);
     const [tooltipValue, setTooltipValue] = useState(null);
-    const [tooltipOffset, setTooltipOffset] = useState(0)
-    const thumbWidth = useThumbWidth(sliderRef, "[id=tick-0]")
-
+    const [tooltipOffset, setTooltipOffset] = useState(0);
+    const thumbWidth = useThumbWidth(sliderRef, '[id=tick-0]');
 
     const {
       max: innerMax = RadixSliderDefaults.max,
@@ -37,14 +31,13 @@ export const Slider = forwardRef(
       orientation: innerOrientation = RadixSliderDefaults.orientation,
     } = props;
 
-
     function handleValueChange(val) {
       setValue(val);
       onValueChange?.(val);
     }
 
     function hadlePointerEnter(event) {
-      const slider = sliderRef.current
+      const slider = sliderRef.current;
       if (!slider) return;
 
       const rect = slider.getBoundingClientRect(); // Get slider position and dimensions
@@ -54,26 +47,23 @@ export const Slider = forwardRef(
       // Calculate the value based on min, max, and percentage
       const value = Math.round(innerMin + percentage * (innerMax - innerMin));
 
-      setTooltipValue(value)
+      setTooltipValue(value);
       setTooltipOffset(pointerPosition);
-
     }
 
     function handlePointerLeave() {
-      setTooltipValue(null)
+      setTooltipValue(null);
     }
 
     return (
-
       <SliderPrimitive.Slider
         ref={sliderRef}
-        className={styles.Slider}
+        className={cx(styles.Slider, className)}
         value={value}
         onValueChange={handleValueChange}
         onPointerEnter={hadlePointerEnter}
         onPointerMove={hadlePointerEnter}
         onPointerLeave={handlePointerLeave}
-
         {...props}
       >
         <Tooltip.Root open={isNotNullOrUndefined(tooltipValue)}>
@@ -91,10 +81,7 @@ export const Slider = forwardRef(
             </SliderPrimitive.Track>
           </Tooltip.Trigger>
           {value.map((_, i) => (
-            <SliderPrimitive.Thumb
-              key={i}
-              className={styles.Thumb}
-            />
+            <SliderPrimitive.Thumb key={i} className={styles.Thumb} />
           ))}
 
           <Tooltip.Content
@@ -106,9 +93,10 @@ export const Slider = forwardRef(
           >
             {tooltipValue}
           </Tooltip.Content>
-        </Tooltip.Root >
+        </Tooltip.Root>
       </SliderPrimitive.Slider>
-
     );
   }
 );
+
+Slider.displayName = 'Slider';

@@ -1,13 +1,7 @@
 import { cx } from 'class-variance-authority';
 import styles from '../slider.module.css';
 
-export function Tick({ 
-  id, 
-  position, 
-  value, 
-  isInRange, 
-  orientation = 'horizontal',
-}) {
+export function Tick({ id, position, value, isInRange, orientation = 'horizontal' }) {
   const isHorizontal = orientation === 'horizontal';
   const isVertical = orientation === 'vertical';
 

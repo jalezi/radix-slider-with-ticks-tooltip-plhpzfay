@@ -13,18 +13,10 @@ function App() {
   return (
     <TooltipProvider>
       <h1>Radix Slider</h1>
-      <div style={{ paddingInline: "2rem" }}>
-        <Slider
-          value={range}
-          onValueChange={onChange}
-          min={0}
-          max={10}
-          step={1}
-        />
-        <div style={{ marginTop: '1em', display: 'flex', gap: '0.5em' }}>
-          {range.map((r, i) => (
-            <span key={`range-${i}`}>{r}</span>
-          ))}
+      <div style={{ paddingInline: '2rem' }}>
+        <Slider value={range} onValueChange={onChange} min={0} max={10} step={1} />
+        <div style={{ marginTop: '1em', display: 'flex', gap: '0.5em', alignItems: "center", justifyContent: "center"}}>
+          Selected range: {range.join(" - ")}
         </div>
       </div>
     </TooltipProvider>
