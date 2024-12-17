@@ -1,32 +1,33 @@
 import { useState } from 'react';
 
 import { Slider } from './components/slider';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 
 function App() {
-  const [range, setRange] = useState([1997,1999]);
+  const [range, setRange] = useState([2, 7]);
 
   const onChange = (e) => {
     setRange(e);
   };
 
   return (
-    <>
+    <TooltipProvider>
       <h1>Radix Slider</h1>
       <div>
         <Slider
           value={range}
           onValueChange={onChange}
-          min={1950}
-          max={2000}
-          step={2}
+          min={0}
+          max={10}
+          step={1}
         />
         <div style={{ marginTop: '1em', display: 'flex', gap: '0.5em' }}>
-          {range.map((r,i) => (
+          {range.map((r, i) => (
             <span key={`range-${i}`}>{r}</span>
           ))}
         </div>
       </div>
-    </>
+    </TooltipProvider>
   );
 }
 

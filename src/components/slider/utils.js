@@ -1,3 +1,9 @@
+/** 
+ * With a help from @nickluger
+ * @see:https://github.com/radix-ui/primitives/issues/1188#issuecomment-1594974370
+*/
+import { THUMB_SIZE } from "./constants";
+
 export function calcStepMarkOffset(index, maxIndex, thumbSize = THUMB_SIZE) {
   const percent = convertValueToPercentage(index, 0, maxIndex);
   const thumbInBoundsOffset = getThumbInBoundsOffset(thumbSize, percent, 1);

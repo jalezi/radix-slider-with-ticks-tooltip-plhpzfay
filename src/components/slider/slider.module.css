@@ -1,7 +1,7 @@
 .Slider {
   --slider-color: lightgrey;
   --range-color: lightblue;
-  --track-height: 0.5lh;
+  --track-height: 2px;
   --thumb-width: 1em;
   position: relative;
   width: 100%;
@@ -23,6 +23,7 @@
   flex-grow: 1;
   background-color: var(--slider-color);
   border-radius: 2em;
+  cursor: pointer;
 }
 
 .Range {
@@ -70,4 +71,22 @@
 
 .Tick.Vertical {
   transform: translate(var(--translate-calc) -50%);
+}
+
+.TooltipContent {
+  --tooltip-background: rgba(0, 0, 0, 0.77);
+
+  padding-inline: 0.5em;
+  padding-block: 0.25em;
+
+  background-color: var(--tooltip-background);
+  color: #ffffff;
+
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.TooltipArrow {
+  fill: var(--tooltip-background);
 }
