@@ -1,4 +1,4 @@
-import { forwardRef,  useLayoutEffect, useRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 
 import * as SliderPrimitive from '@radix-ui/react-slider';
 
@@ -22,11 +22,13 @@ export const Slider = forwardRef(
     },
     forwardedRef
   ) => {
-    const [value, setValue] = useState(defaultValueProp ?? valueProp ?? [0]);
-    const [thumbWidth, setThumbWidth] = useState(THUMB_SIZE);
-  
     const sliderRef = useRef(forwardedRef);
     const trackRef = useRef();
+
+    const [value, setValue] = useState(defaultValueProp ?? valueProp ?? [0]);
+    const thumbWidth = useThumbWidth(sliderRef, "[id=tick-0]")
+    const [tooltipValue, setTooltipValue] = useState(null)
+
 
     const {
       max: innerMax = RadixSliderDefaults.max,
@@ -34,12 +36,6 @@ export const Slider = forwardRef(
       step: innerStep = RadixSliderDefaults.step,
       orientation: innerOrientation = RadixSliderDefaults.orientation,
     } = props;
-
-    useLayoutEffect(() => {
-      const thumb = sliderRef.current.querySelector(`[id=tick-0]`);
-      const width = thumb.offsetWidth;
-      setThumbWidth(width);
-    }, []);
 
     function handleValueChange(val) {
       setValue(val);
